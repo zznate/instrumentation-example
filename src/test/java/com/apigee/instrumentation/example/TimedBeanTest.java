@@ -1,5 +1,7 @@
-package com.apigee.tryout;
+package com.apigee.instrumentation.example;
 
+import com.apigee.instrumentation.example.InstrumentedBean;
+import com.apigee.instrumentation.example.InstrumentedBeans;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

@@ -12,7 +12,7 @@
 
     <metrics:jmx-reporter id="metricsJmxReporter" metrics-registry="metrics"/>
 
-    <bean name="annotatedTimedBean" class="com.apigee.tryout.InstrumentedBeans" factory-method="metricsAnnotated">
+    <bean name="annotatedTimedBean" class="com.apigee.instrumentation.example.InstrumentedBeans" factory-method="metricsAnnotated">
         <constructor-arg value="5"/>
     </bean>
 

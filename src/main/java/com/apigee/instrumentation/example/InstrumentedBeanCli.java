@@ -1,4 +1,4 @@
-package com.apigee.tryout;
+package com.apigee.instrumentation.example;
 
 
 import org.springframework.context.ApplicationContext;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Can be run from the command line via maven thusly:
- * mvn -e exec:java -Dexec.mainClass="com.apigee.tryout.InstrumentedBeanCli"
+ * mvn -e exec:java -Dexec.mainClass="com.apigee.instrumentation.example.InstrumentedBeanCli"
  *
  * Executes a background thread which loops over the {@link InstrumentedBean#calculateSomething(int)}
  * methods infinitely until killed via CTRL+c

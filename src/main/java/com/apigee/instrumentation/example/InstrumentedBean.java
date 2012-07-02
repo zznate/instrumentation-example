@@ -1,4 +1,4 @@
-package com.apigee.tryout;
+package com.apigee.instrumentation.example;
 
 /**
  * @author zznate

@@ -1,6 +1,4 @@
-package com.apigee.tryout;
-
-import sun.management.counter.perf.InstrumentationException;
+package com.apigee.instrumentation.example;
 
 /**
  * Static factory for initializing implementations of {@link InstrumentedBean}
