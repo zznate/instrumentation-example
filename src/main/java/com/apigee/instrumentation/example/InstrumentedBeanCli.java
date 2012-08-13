@@ -1,6 +1,7 @@
 package com.apigee.instrumentation.example;
 
 
+import com.yammer.metrics.reporting.GraphiteReporter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -24,6 +25,12 @@ public class InstrumentedBeanCli {
     // TODO add -t [annotated|programatic] option
 
     ApplicationContext ac = new ClassPathXmlApplicationContext("/appContext.xml");
+    // load the graphite endpoint to fire at 1 min intervals if we are configured for such
+    final GraphiteReporter graphiteReporter = ac.getBean("graphiteReporter", GraphiteReporter.class);
+    if ( graphiteReporter != null ) {
+      graphiteReporter.start(1, TimeUnit.MINUTES);
+    }
+
     // The annotated version must come via CDI (a.k.a "IoC container")
     final InstrumentedBean atb = ac.getBean("annotatedTimedBean", InstrumentedBean.class);
 

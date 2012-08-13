@@ -12,10 +12,25 @@
 
     <metrics:jmx-reporter id="metricsJmxReporter" metrics-registry="metrics"/>
 
+
     <bean name="annotatedTimedBean" class="com.apigee.instrumentation.example.InstrumentedBeans" factory-method="metricsAnnotated">
         <constructor-arg value="5"/>
     </bean>
 
-    <!-- other beans -->
+    <bean name="graphiteReporter" class="com.yammer.metrics.reporting.GraphiteReporter">
+        <constructor-arg value="graphite.example.com"/>
+        <constructor-arg value="2003"/>
+        <constructor-arg value="instrumentation_prefix"/>
+    </bean>
+    <!-- other beans
+    GraphiteReporter.enable(1, TimeUnit.MINUTES, "graphite.example.com", 2003);
+    <constructor-arg value="1"/>
+            <constructor-arg>
+                <bean class="java.util.concurrent.TimeUnit" factory-method="valueOf">
+                    <constructor-arg value="MINUTES"/>
+                </bean>
+            </constructor-arg>
+
+    -->
 
 </beans>

@@ -66,12 +66,12 @@
         </dependency>
         <dependency>
             <groupId>com.yammer.metrics</groupId>
-            <artifactId>metrics-annotation</artifactId>
+            <artifactId>metrics-graphite</artifactId>
             <version>${metrics.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yammer.metrics</groupId>
-            <artifactId>metrics-log4j</artifactId>
+            <artifactId>metrics-annotation</artifactId>
             <version>${metrics.version}</version>
         </dependency>
         <dependency>
