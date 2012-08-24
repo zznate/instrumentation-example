@@ -26,6 +26,7 @@ public class InstrumentedBeanCli {
 
     ApplicationContext ac = new ClassPathXmlApplicationContext("/appContext.xml");
     // load the graphite endpoint to fire at 1 min intervals if we are configured for such
+    // the reporter hooks are a bit rough for IoC/CDI. A factory approach would be a little nicer
     final GraphiteReporter graphiteReporter = ac.getBean("graphiteReporter", GraphiteReporter.class);
     if ( graphiteReporter != null ) {
       graphiteReporter.start(1, TimeUnit.MINUTES);
