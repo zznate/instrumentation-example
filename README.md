@@ -7,11 +7,11 @@ I've been around long enough now to know that when you need to do something like
 So stop what you are working on, create a new branch, and get ready to follow along at home. To get immediate return on time spent should not take more than an afternoon of hackery. Really the biggest bottleneck I found, was scoring the time from our very good by already overworked ops team to pull the trigger getting on a monitoring solution in place for us. 
 
 # Conceptual Background
-Instrumenting application behavior at the code level provides a critical feedback loop to both application developers and operations personnel about the runtime health of a system.
+A quick peek at the history of the term instrumentation will be helpful for the context  of understanding the provided functionality: [http://en.wikipedia.org/wiki/Instrumentation](http://en.wikipedia.org/wiki/Instrumentation). 
+
+Graphing these concepts onto the application behavior at the code level is fitting - what we deal with as programmers is input and output. Measuring what happens in between provides a critical feedback loop to both application developers and operations personnel about the runtime health of a system.
 
 When coupled with a monitoring system which stores historical data, code instrumentation provides valuable information into application performance over time. With this information, it becomes easier to spot performance regressions and application hotspots as load and traffic patterns change (assuming those are monitored as well).
-
-TODO historical info on the term instrumentation pre-software
 
 # Getting Started With Instrumentation
 As a first step, it's best to start with common dispatch mechanisms or system entry points, instrumenting them for execution time. For example, lets assume we have just instrumented the "authenticate" method of a UserService. This hypothetical UserService encapsulates the interactions with several distinct systems, retrieving user information from a data store and verifying a certificate against a key store.
