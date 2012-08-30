@@ -1,4 +1,3 @@
-
 # Introduction
 Application instrumentation is one of those things, like test driven development, which I've come to consider as mission critical in writing good software. And, just like test driven development, it seems to always end up getting short-cutted, de-prioritized, or otherwise man-handled when crunch time comes. 
 
@@ -12,6 +11,7 @@ A quick peek at the history of the term instrumentation will be helpful for the 
 Graphing these concepts onto the application behavior at the code level is fitting - what we deal with as programmers is input and output. Measuring what happens in between provides a critical feedback loop to both application developers and operations personnel about the runtime health of a system.
 
 When coupled with a monitoring system which stores historical data, code instrumentation provides valuable information into application performance over time. With this information, it becomes easier to spot performance regressions and application hotspots as load and traffic patterns change (assuming those are monitored as well).
+
 
 # Getting Started With Instrumentation
 As a first step, it's best to start with common dispatch mechanisms or system entry points, instrumenting them for execution time. For example, lets assume we have just instrumented the "authenticate" method of a UserService. This hypothetical UserService encapsulates the interactions with several distinct systems, retrieving user information from a data store and verifying a certificate against a key store.
@@ -72,23 +72,35 @@ The MBean inspector is not present by default so we have to configure its plugin
 3. Select __VisualVM-MBeans__ (though we won’t use it in this tutorial, __Visual GC__ is handy as well)
 4. Restart __jvisualvm__
 
-Once __jvisualvm__ is running with the __VisiaulVM-MBeans__ plugin installed, start the demo application and attach __jvisualvm__ to the demo process.
-[process title]
+Once __jvisualvm__ is running with the __VisiaulVM-MBeans__ plugin installed, start the demo application and attach __jvisualvm__ to the demo process by:
+
+1. Selecting the "Launcher" process from the list in the __Applications__ pane
+2. You can verify we found the right process as it will display the arguments we invoked to start the demo
+[pic]
 
 
-### Examining Output of the Annotations
-Open up the details for: [detail tree] ...
+### Examining The Demo Application Process
+Now that we are attached to the demo process, let's look at the output of the annotations through the MBean interface (automatically created for us by wiring in the JmxReporter in our applcation context). In the __jvisualvm__ window:
+
+1. Select the __MBeans__ tab 
+2. Expand the selection list for the __Annotated__ MBean in the __MBeans__ pane
+3. Expand the __AnnotatedInstrumentedBean__ to reveal the output from the Timed and ExceptionMetered annotations
+4. Similarly, expand the __someType__ bean to reveal the output of the Metered annotation
+
+Note that we were able to slot the Metered output into a different bean by adding a __type__ of "__someType__" when we declared the annotation. To have the output from Metered grouped with the other two annotations, remove the __type__ argument. 
+
+Now that you have a feel for how the annotations present themselves via MBean, click around and explore the output (hitting refresh to update the statistics). The details present for each type of annotation will be explained in further detail below. 
 
 
-## How to Add metrics To Your Code
+## Using Metrics With Your Code
 As previously mentioned, the Metrics API can be annotation driven. Dropping this into crucial parts of your code via such will therefore be straightforward. It really should not take you more than an hour to tackle the most critical paths of your code base. There are currently four different annotations avaialble in the Metrics API:
 
 - Metered
 - Timed (contains metered)
 - ExceptionMetered
-- Counter (not shown, but simple enough) 
+- Counter (not shown in our example, but simple enough) 
 
-The actual metric types available from the Metrics API are slightly different than the annotations. I'm not going into detail on them because they are already [well documented](http://metrics.codahale.com/manual/core/) and I'm of the school of thought that instrumentation should be as minimially invasive as possible. Thus our focus on the annotations. TODO ref. back to original scope of instrumentation in industry if possible
+The actual metric types available from the Metrics API are slightly different than the annotations. I'm not going into detail on them because they are already [well documented](http://metrics.codahale.com/manual/core/) and I'm of the school of thought that instrumentation should be as minimially invasive as possible. Thus our focus on the annotations. 
 
 
 ### A Note for CDI/IoC Users
