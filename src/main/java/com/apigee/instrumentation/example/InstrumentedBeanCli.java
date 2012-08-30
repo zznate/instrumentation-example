@@ -2,6 +2,9 @@ package com.apigee.instrumentation.example;
 
 
 import com.yammer.metrics.reporting.GraphiteReporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -20,6 +23,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class InstrumentedBeanCli {
 
+  static Logger logger = LoggerFactory.getLogger(InstrumentedBeanCli.class);
+
   public static void main( String[] args ) throws Exception {
 
     // TODO add -t [annotated|programatic] option
@@ -27,9 +32,13 @@ public class InstrumentedBeanCli {
     ApplicationContext ac = new ClassPathXmlApplicationContext("/appContext.xml");
     // load the graphite endpoint to fire at 1 min intervals if we are configured for such
     // the reporter hooks are a bit rough for IoC/CDI. A factory approach would be a little nicer
-    final GraphiteReporter graphiteReporter = ac.getBean("graphiteReporter", GraphiteReporter.class);
-    if ( graphiteReporter != null ) {
+    final GraphiteReporter graphiteReporter;
+    try {
+      graphiteReporter = ac.getBean("graphiteReporter", GraphiteReporter.class);
+
       graphiteReporter.start(1, TimeUnit.MINUTES);
+    } catch (NoSuchBeanDefinitionException nsbde) {
+      logger.info("graphiteReporter config not found... use JMX to see output");
     }
 
     // The annotated version must come via CDI (a.k.a "IoC container")

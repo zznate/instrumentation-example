@@ -36,7 +36,7 @@ final class AnnotatedInstrumentedBean implements InstrumentedBean {
    * @param modifier used as a primer to run the hash function a random number
    */
   @Timed(name = "TimedBean_Timed", group = "Annotated")
-  @Metered(name = "TimeBean_Metered", group = "Annotated")
+  @Metered(name = "TimeBean_Metered", group = "Annotated", type = "someType")
   @ExceptionMetered(name = "TimedBean_exceptions", group = "Annotated")
   public void calculateSomething(int modifier) {
     Preconditions.checkArgument(modifier > 0, "modifier must be greater than zero");
